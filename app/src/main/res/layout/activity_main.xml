@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:background="#ff3cdd53">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:background="@drawable/button_selector"
+        android:text="@string/newGame"
+        android:id="@+id/btNewGame"
+        android:layout_marginTop="20dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/tvConstHit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvConstBool"
+            android:layout_marginRight="@dimen/marginTopTextViewSides"
+            android:text="@string/hit"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/tvBoolScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tvConstBool"
+            android:layout_alignRight="@+id/tvConstBool"
+            android:layout_below="@+id/tvConstBool"
+            android:layout_marginTop="10dp"
+            android:background="#00ecff"
+            android:padding="5dp"
+            android:text="0"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/tvHitScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ecff"
+            android:padding="5dp"
+            android:text="0"
+            android:textSize="40sp"
+            android:layout_alignTop="@+id/tvBoolScore"
+            android:layout_alignLeft="@+id/tvConstHit"
+            android:layout_alignStart="@+id/tvConstHit" />
+
+        <TextView
+            android:id="@+id/tvConstBool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/marginTopTextViewSides"
+            android:layout_marginTop="@dimen/marginTopTextViewTop"
+            android:text="@string/bool"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:text="Insert your guess here:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etUserGuess"
+            android:layout_width="wrap_content"
+            android:textSize="30sp"
+            android:layout_height="wrap_content"
+            android:ems="9"
+            android:inputType="numberSigned"
+            android:imeOptions="actionDone"
+            android:maxLength="4"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+    </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btGuess"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/guessButtonText"
+
+            android:textSize="30sp"
+
+
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:background="@drawable/button_selector" />
+
+
+
+
+</LinearLayout>
