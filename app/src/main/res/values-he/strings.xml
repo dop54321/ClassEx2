@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">משחק חפש את המספר</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="bool">בול</string>
+    <string name="hit">פגיעה</string>
+    <string name="guessButtonText">נחש</string>
+    <string name="newGame">משחק חדש</string>
+    <string name="textViewInsertGuess">הכנס ניחוש</string>
+</resources>

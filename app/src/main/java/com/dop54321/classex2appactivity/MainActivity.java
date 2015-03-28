@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         game.setWhatHapandWhenWin(new BoolPgiaLogicClass.WhatHapandWhenWin() {
             @Override
             public void youWin() {
-
+                MainActivity.this.numOfTries=0;
                 String dialogTitle = "You Win";
                 String dialogMessage = "You Win!!! Number of tries: "+MainActivity.this.numOfTries;
                 String dialogButtonText = "Start new game";
