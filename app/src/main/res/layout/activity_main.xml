@@ -77,6 +77,17 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/btGuess"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/guessButtonText"
+        android:textSize="30sp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:background="@drawable/button_selector" />
+
     <RelativeLayout
         android:layout_marginTop="20dp"
         android:layout_width="fill_parent"
@@ -107,22 +118,13 @@
             android:layout_marginTop="20dp" />
     </RelativeLayout>
 
-
-        <Button
-            android:id="@+id/btGuess"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/guessButtonText"
-
-            android:textSize="30sp"
-
-
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:background="@drawable/button_selector" />
-
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/exitButtonText"
+        android:id="@+id/btExit"
+        android:background="@drawable/button_selector"/>
 
 
 </LinearLayout>

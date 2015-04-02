@@ -8,4 +8,5 @@
     <string name="guessButtonText">Guess</string>
     <string name="newGame">New Game</string>
     <string name="textViewInsertGuess">Insert your guess here:</string>
+    <string name="exitButtonText">Exit</string>
 </resources>

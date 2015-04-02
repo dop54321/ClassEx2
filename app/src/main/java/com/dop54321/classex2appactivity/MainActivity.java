@@ -18,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
     TextView tvBoolScore;
     Button btGuess;
     Button btNewGame;
+    Button btExit;
     EditText etUserGuess;
 
     BoolPgiaLogicClass game;
@@ -40,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         game.setWhatHapandWhenWin(new BoolPgiaLogicClass.WhatHapandWhenWin() {
             @Override
             public void youWin() {
-                MainActivity.this.numOfTries=0;
+
                 String dialogTitle = "You Win";
                 String dialogMessage = "You Win!!! Number of tries: "+MainActivity.this.numOfTries;
                 String dialogButtonText = "Start new game";
@@ -85,8 +86,8 @@ public class MainActivity extends ActionBarActivity {
                 int hitsCount = 0;
                 int boolsCount = 0;
                 try {
-                    hitsCount = game.howManyAlmosts(userGuessedNumber);
-                    boolsCount = game.howManyHits(userGuessedNumber);
+                    hitsCount = game.howManyHits(userGuessedNumber);
+                    boolsCount = game.howManyBools(userGuessedNumber);
                 } catch (IllegalArgumentException iae) {
                     AlertDialog errorDialog = getAlertDialog("Illegal Argument", "The number you enter is not legal");
                     errorDialog.setButton(DialogInterface.BUTTON_POSITIVE,"Try again",new DialogInterface.OnClickListener() {
@@ -105,6 +106,23 @@ public class MainActivity extends ActionBarActivity {
                 MainActivity.this.numOfTries++;
             }
         });
+        btExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dialogTitle = "Game Over!";
+                String dialogMessage = "Game Over.. \nThe correct number was: "+MainActivity.this.game.getThisNumber().getThisNumber();
+                String dialogButtonText = "see you next time..";
+                AlertDialog alertDialog = getAlertDialog(dialogTitle, dialogMessage);
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, dialogButtonText,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
     }
 
     private void setNewGame() {
@@ -118,6 +136,7 @@ public class MainActivity extends ActionBarActivity {
         tvBoolScore = (TextView) findViewById(R.id.tvBoolScore);
         btGuess = (Button) findViewById(R.id.btGuess);
         btNewGame = (Button) findViewById(R.id.btNewGame);
+        btExit= (Button) findViewById(R.id.btExit);
         etUserGuess = (EditText) findViewById(R.id.etUserGuess);
         game = new BoolPgiaLogicClass();
     }

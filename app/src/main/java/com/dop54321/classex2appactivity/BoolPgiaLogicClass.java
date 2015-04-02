@@ -1,48 +1,51 @@
 package com.dop54321.classex2appactivity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Created by dop54321 on 27/03/2015.
  */
-public class BoolPgiaLogicClass  {
+public class BoolPgiaLogicClass {
     //interface field for win the game event
     private WhatHapandWhenWin whatHapandWhenWin;
-    //how many digits for game
-    private int defaultNumOfDigits = 4;
+    private Number thisNumber;
 
-    private String currentRandomNumber;
 
     /**
      * Default game constructor, the number of digits in number is 4.
      */
     public BoolPgiaLogicClass() {
-
+        this(4);
     }
 
-    public void setWhatHapandWhenWin(WhatHapandWhenWin whatHapandWhenWinInterface){
-        whatHapandWhenWin=whatHapandWhenWinInterface;
-    }
 
     /**
      * Game constructor, the number of digits in number is howManyDigitsInGame
+     *
      * @param howManyDigitsInGame the number of digits in number
      */
     public BoolPgiaLogicClass(int howManyDigitsInGame) {
 
-        if (howManyDigitsInGame<10&&howManyDigitsInGame>0) {
-            this.defaultNumOfDigits = howManyDigitsInGame;
-        } else if (howManyDigitsInGame>=10){
-            this.defaultNumOfDigits =9;
+        if (howManyDigitsInGame < 10 && howManyDigitsInGame > 0) {
+            thisNumber = new Number(howManyDigitsInGame);
+            thisNumber.generateNewNumber();
+        } else if (howManyDigitsInGame >= 10) {
+            thisNumber = new Number(9);
+            thisNumber.generateNewNumber();
         }
 
     }
 
-    public String StartNewGame(){
-        currentRandomNumber=RandomGenerator();
-        return currentRandomNumber;
+    public Number getThisNumber() {
+        return thisNumber;
+    }
+
+    public void setWhatHapandWhenWin(WhatHapandWhenWin whatHapandWhenWinInterface) {
+        whatHapandWhenWin = whatHapandWhenWinInterface;
+    }
+
+
+    public String StartNewGame() {
+        Number number = thisNumber.generateNewNumber();
+        return number.getThisNumber();
     }
 
     public boolean isValid(String gussedNumber) {
@@ -52,14 +55,15 @@ public class BoolPgiaLogicClass  {
         } catch (Exception e) {
             return false;
         }
-        if (gussedNumber.length() != this.defaultNumOfDigits)
+        int defaultNumOfDigits = thisNumber.getDefaultNumOfDigits();
+        if (gussedNumber.length() != defaultNumOfDigits)
             return false;
 
         if (intGussedNumber < 0)
             return false;
-        for (int i = 0; i < this.defaultNumOfDigits; i++) {
+        for (int i = 0; i < defaultNumOfDigits; i++) {
             char c = gussedNumber.charAt(i);
-            for (int j = 0; j < this.defaultNumOfDigits; j++) {
+            for (int j = 0; j < defaultNumOfDigits; j++) {
                 if (j != i && gussedNumber.charAt(j) == c)
                     return false;
             }
@@ -70,70 +74,44 @@ public class BoolPgiaLogicClass  {
     }
 
     /**
-     *
      * @param guessedNumber
      * @return number of times the gussed digit and the random number digit at same index are
      * equal.
      */
-    public int howManyHits(String guessedNumber) throws Exception{
+    public int howManyBools(String guessedNumber) throws Exception {
+        Number otherNumber = new Number(guessedNumber.length());
+        otherNumber.setThisNumber(guessedNumber);
         if (!isValid(guessedNumber))
             throw new IllegalArgumentException("Arg number is not leagal");
 
-        int boolCounter = 0;
-        for (int i = 0; i < guessedNumber.length(); i++) {
-             if (currentRandomNumber.charAt(i)==guessedNumber.charAt(i)){
-                 boolCounter++;
-             }
-        }
-        if (boolCounter==this.defaultNumOfDigits)
-            if (whatHapandWhenWin!=null){
+        int boolCounter = thisNumber.howManyBools(otherNumber);
+
+        if (boolCounter == thisNumber.getDefaultNumOfDigits())
+            if (whatHapandWhenWin != null) {
                 whatHapandWhenWin.youWin();
             }
         return boolCounter;
+
     }
-    
-    public int howManyAlmosts(String guessedNumber) throws Exception {
+
+    public int howManyHits(String guessedNumber) throws Exception {
+        Number other = new Number(guessedNumber.length());
+        other.setThisNumber(guessedNumber);
         if (!isValid(guessedNumber))
             throw new IllegalArgumentException("Arg number is not leagal");
-        int almostCounter = 0;
-        for (int i = 0; i < guessedNumber.length(); i++) {
-            char c = guessedNumber.charAt(i);
-            boolean isCurrentCharIsInTheRandomNumber =
-                    currentRandomNumber.contains(String.valueOf(c));
+        int almostCounter = thisNumber.howManyHits(other);
 
-            if (isCurrentCharIsInTheRandomNumber
-                    && currentRandomNumber.charAt(i)!=c)
-                almostCounter++;
-        }
         return almostCounter;
     }
-    
-    /**
-     *
-     * @return 4 unique digit number as string
-     */
-    public String RandomGenerator() {
-        List<Integer> numbers = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            numbers.add(i);
-        }
 
-        Collections.shuffle(numbers);
-
-        String result = "";
-        for(int i = 0; i < this.defaultNumOfDigits; i++){
-            result += numbers.get(i).toString();
-        }
-        return result;
-    }
 
     public interface WhatHapandWhenWin {
         public void youWin();
     }
 
-//test my class
+    //test my class
     public static void main(String[] args) {
-        BoolPgiaLogicClass boolPgiaLogicClass=new BoolPgiaLogicClass();
+        BoolPgiaLogicClass boolPgiaLogicClass = new BoolPgiaLogicClass();
 
         boolPgiaLogicClass.setWhatHapandWhenWin(new WhatHapandWhenWin() {
             @Override
@@ -142,35 +120,73 @@ public class BoolPgiaLogicClass  {
             }
         });
 
-        ////generate 4 random unique digits and return string of that number
+        //generate 4 random unique digits and return string of that number
         //String s = boolPgiaLogicClass.RandomGenerator();
         //System.out.println("result: "+s);
 
         //the return String is only for the testing
         String s = boolPgiaLogicClass.StartNewGame();
-        System.out.println("the random number is: "+s);
+        System.out.println("the random number is: " + s);
+//
+//        String guess="236719";
+//        String winGuess=s;
+        int numOfBool = 0;
+        int numOfHits = 0;
+//        try {
+//            numOfBool = boolPgiaLogicClass.howManyBools(guess);
+//            numOfHits = boolPgiaLogicClass.howManyHits(guess);
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("ERROR: "+e.getMessage());
+//            return;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("your guess is: "+guess);
+//        System.out.println("you have: "+numOfBool+" bools");
+//        System.out.println("you have: "+numOfPgiot+" Pgiot");
+        String start = "0123";
+        boolean leagal = true;
+        String guess = start;
+        int startint= Integer.parseInt(start);
+        while (numOfBool != 4 && startint < 10000) {
+            try {
+                numOfBool = boolPgiaLogicClass.howManyBools(guess);
+                numOfHits = boolPgiaLogicClass.howManyHits(guess);
+            } catch (IllegalArgumentException e) {
+                //System.out.println("ERROR: " + e.getMessage());
+                leagal = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (!leagal) {
+                startint= Integer.parseInt(guess);
+                startint++;
+                guess = String.valueOf(startint);
+                if (startint<1000) {
+                    guess = String.valueOf(startint);
+                    guess="0"+guess;
+                }
+                leagal=true;
+                continue;
+            }
 
-        String guess="23567";
-        String winGuess=s;
-        int numOfBool= 0;
-        int numOfPgiot= 0;
-        try {
-            numOfBool = boolPgiaLogicClass.howManyHits(winGuess);
-            numOfPgiot = boolPgiaLogicClass.howManyAlmosts(winGuess);
-        } catch (IllegalArgumentException e) {
-            System.out.println("ERROR: "+e.getMessage());
-            return;
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("guess: " + guess);
+
+            System.out.println("---bools: " + numOfBool);
+            System.out.println("---hits: " + numOfHits);
+
+            startint= Integer.parseInt(guess);
+            startint++;
+            if (startint<1000) {
+                guess = String.valueOf(startint);
+                guess="0"+guess;
+            }
+            else
+                guess = String.valueOf(startint);
         }
 
-        System.out.println("your guess is: "+guess);
-        System.out.println("you have: "+numOfBool+" bools");
-        System.out.println("you have: "+numOfPgiot+" Pgiot");
-
-
     }
-
 
 
 }
